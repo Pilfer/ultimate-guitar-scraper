@@ -1,0 +1,9 @@
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: golang
+  commands:
+  - go build
+  - go test

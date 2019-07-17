@@ -103,7 +103,7 @@ func (s *Scraper) GetTabByID(tabID int) (TabResult, error) {
 // SetProxy - Set a proxy for this scraper instance. Call again with SetProxy("") to remove.
 func (s *Scraper) SetProxy(proxy string) {
 	if len(proxy) > 1 {
-		proxyStr := proxy // "http://localhost:8080"
+		proxyStr := proxy
 		proxyURL, _ := url.Parse(proxyStr)
 		transport := &http.Transport{
 			Proxy:           http.ProxyURL(proxyURL),
