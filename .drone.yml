@@ -1,8 +1,13 @@
 kind: pipeline
 name: default
 
+workspace:
+  base: /go
+  path: src/github.com/Pilfer/ultimate-guitar-scraper
+
 steps:
 - name: build
   image: golang
   commands:
-  - go build example/example.go
+    - go get
+    - go build example/example.go
