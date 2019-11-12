@@ -1,26 +1,42 @@
-package scraper
+package ultimateguitar
 
-// Here are the rough known tab types - I didn't verify too closely.
-const (
-	// TabTypeVideo type
-	TabTypeVideo = 100
-	// TabTypeTabs type
-	TabTypeTabs = 200
-	// TabTypeChords type
-	TabTypeChords = 300
-	// TabTypeBass type
-	TabTypeBass = 400
-	// TabTypePro type
-	TabTypePro = 500
-	// TabTypePower type
-	TabTypePower = 600
-	// TabTypeDrums type
-	TabTypeDrums = 700
-	// TabTypeUkulele type
-	TabTypeUkulele = 800
-	// TabTypeAll type
-	TabTypeAll = 1000
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
 )
+
+// GetTabByID - Fetches the corresponding tab on UG
+func (s *Scraper) GetTabByID(tabID int) (TabResult, error) {
+	tabResult := TabResult{}
+
+	urlString := fmt.Sprintf("%s%s?tab_id=%d&tab_access_type=private", ugAPIEndpoint, AppPaths.TAB_INFO, tabID)
+	req, _ := http.NewRequest("GET", urlString, nil)
+
+	// Do some minor header manipulation so we retain the case
+	for key := range ugHeaders {
+		req.Header[key] = []string{ugHeaders[key]}
+	}
+	req.Header["X-UG-CLIENT-ID"] = []string{s.DeviceID}
+	req.Header["X-UG-API-KEY"] = []string{s.generateAPIKey()}
+
+	// This header isn't sent in the app, so we remove it.
+	req.Header.Del("Accept-Encoding")
+
+	res, err := s.Client.Do(req)
+	if err != nil {
+		return tabResult, err
+	}
+
+	defer res.Body.Close()
+
+	err = json.NewDecoder(res.Body).Decode(&tabResult)
+	if err != nil {
+		return tabResult, err
+	}
+
+	return tabResult, nil
+}
 
 // TabResult struct - this is what we get when we fetch a tab by id.
 type TabResult struct {

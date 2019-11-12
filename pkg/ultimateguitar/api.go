@@ -1,11 +1,11 @@
-package scraper
+package ultimateguitar
 
 import (
 	"crypto/md5"
 	"crypto/rand"
 	"crypto/tls"
-	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -33,7 +33,10 @@ type Scraper struct {
 // Generates a new device id for the scraper instances. This value is used in the request headers and to generate X-UG-API-KEY.
 func (s *Scraper) generateDeviceID() {
 	raw := make([]byte, 16)
-	rand.Read(raw)
+	_, err := rand.Read(raw)
+	if err != nil {
+		log.Fatal(err)
+	}
 	s.DeviceID = fmt.Sprintf("%x", raw)[:16]
 }
 
@@ -70,36 +73,6 @@ func (s *Scraper) generateAPIKey() string {
 	return fmt.Sprintf("%x", hashed)
 }
 
-// GetTabByID - Fetches the corresponding tab on UG
-func (s *Scraper) GetTabByID(tabID int) (TabResult, error) {
-	tabResult := TabResult{}
-
-	url := fmt.Sprintf("%s/tab/info?tab_id=%d&tab_access_type=private", ugAPIEndpoint, tabID)
-	req, _ := http.NewRequest("GET", url, nil)
-
-	// Do some minor header manipulation so we retain the case
-	for key := range ugHeaders {
-		req.Header[key] = []string{ugHeaders[key]}
-	}
-	req.Header["X-UG-CLIENT-ID"] = []string{s.DeviceID}
-	req.Header["X-UG-API-KEY"] = []string{s.generateAPIKey()}
-	req.Header.Del("Accept-Encoding")
-
-	res, err := s.Client.Do(req)
-	if err != nil {
-		return tabResult, err
-	}
-
-	defer res.Body.Close()
-
-	err = json.NewDecoder(res.Body).Decode(&tabResult)
-	if err != nil {
-		return tabResult, err
-	}
-	fmt.Printf("%+v\n", tabResult.SongName)
-	return tabResult, nil
-}
-
 // SetProxy - Set a proxy for this scraper instance. Call again with SetProxy("") to remove.
 func (s *Scraper) SetProxy(proxy string) {
 	if len(proxy) > 1 {
@@ -112,7 +85,6 @@ func (s *Scraper) SetProxy(proxy string) {
 		s.Client.Transport = transport
 	} else {
 		s.Client.Transport = &http.Transport{}
-
 	}
 }
 
