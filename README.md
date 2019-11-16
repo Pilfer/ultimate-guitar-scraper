@@ -20,7 +20,7 @@ As much as I appreciate the work UG has done compiling the largest online guitar
 
 - Golang (duh)  
 - Frida - [https://frida.re/](https://frida.re/)    
-- JEB Decompiler - [https://www.pnfsoftware.com/jeb/android](https://www.pnfsoftware.com/jeb/android))  
+- JEB Decompiler - [https://www.pnfsoftware.com/jeb/android](https://www.pnfsoftware.com/jeb/android)  
 - Charles / mitmproxy
 
 
