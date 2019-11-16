@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-
 func (s *Scraper) TabByURL(urlParam string) (TabFromURLResult, error) {
 	var tabResult TabFromURLResult
 
@@ -37,7 +36,6 @@ func (s *Scraper) TabByURL(urlParam string) (TabFromURLResult, error) {
 
 	return tabResult, nil
 }
-
 
 type TabFromURLResult struct {
 	ID                 int     `json:"id"`

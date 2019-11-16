@@ -7,7 +7,7 @@ import (
 )
 
 // GetTabByID - Fetches the corresponding tab on UG
-func (s *Scraper) GetTabByID(tabID int) (TabResult, error) {
+func (s *Scraper) GetTabByID(tabID int64) (TabResult, error) {
 	tabResult := TabResult{}
 
 	urlString := fmt.Sprintf("%s%s?tab_id=%d&tab_access_type=private", ugAPIEndpoint, AppPaths.TAB_INFO, tabID)

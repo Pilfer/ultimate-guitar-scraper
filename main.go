@@ -1,37 +1,21 @@
 package main
 
 import (
-	"fmt"
-	"github.com/Pilfer/ultimate-guitar-scraper/pkg/ultimateguitar"
+	"os"
+
+	"github.com/Pilfer/ultimate-guitar-scraper/cmd"
+	"github.com/urfave/cli"
 )
 
 func main() {
-	fmt.Println("Running..")
-	s := ultimateguitar.New()
-	s.SetProxy("http://localhost:8888")
-	fmt.Println("Scraper initialized with device id of: ", s.DeviceID)
-
-	_, _ = s.TabByURL("https://tabs.ultimate-guitar.com/tab/johnny_flynn/raising_the_dead_chords_1947141")
-
-	/*
-	tab, err := s.GetTabByID(1956589)
-
-	if err != nil {
-		log.Fatal(err)
+	app := cli.NewApp()
+	app.Before = cmd.BeforeCommand
+	app.After = cmd.AfterCommand
+	app.Name = "ug"
+	app.Version = "0.0.1"
+	app.Commands = []cli.Command{
+		cmd.FetchTab,
 	}
-
-	fmt.Println("----------------------------------------------------------------------")
-	fmt.Println("Song name:", tab.SongName, " by ", tab.ArtistName)
-	fmt.Println("----------------------------------------------------------------------")
-
-	// Remove the syntax delimiters as a proof of concept
-	tabOut := tab.Content
-	tabOut = strings.ReplaceAll(tabOut, "[tab]", "")
-	tabOut = strings.ReplaceAll(tabOut, "[/tab]", "")
-	tabOut = strings.ReplaceAll(tabOut, "[ch]", "")
-	tabOut = strings.ReplaceAll(tabOut, "[/ch]", "")
-	fmt.Println(tabOut)
-	fmt.Println("----------------------------------------------------------------------")
-	*/
+	_ = app.Run(os.Args)
 
 }
