@@ -35,4 +35,4 @@ As much as I appreciate the work UG has done compiling the largest online guitar
 
 ## Disclaimer / Legal  
 
-This software's purpose is purely educational. I am not responsible for how you use this package. This repository and all others associated with it are not affiliated with, authorized, affiliated, or endorsed by Ultimate-Guitar.com. 
+This software's purpose is purely educational. I am not responsible for how you use this package. This repository and all others associated with it are not affiliated with, authorized, or endorsed by Ultimate-Guitar.com. 
