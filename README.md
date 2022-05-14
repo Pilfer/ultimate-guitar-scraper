@@ -21,7 +21,7 @@ This package allows you to programmatically fetch tabs and do pretty much whatev
 - [X] Fetch tab by URL
 - [X] Search for tabs  
 - [X] Explore popular tabs  
-- [X] Explore tab as `.wav` (Thanks to [https://github.com/timiskhakov/music](https://github.com/timiskhakov/music))!!  
+- [X] Export tab as `.wav` (Thanks to [https://github.com/timiskhakov/music](https://github.com/timiskhakov/music))!!  
 - [X] Fetch popular tabs (see: `ultimateguitar.Explore`)  
 - [ ] Scrape all tabs by artist  
   -  Fun fact: on mobile, UG doesn't have a "list tabs by artist name/id" endpoint. They just load ~7 pages. Weird. The functionality for this is technically here already, I just didn't add a helper method. Go nuts.  
