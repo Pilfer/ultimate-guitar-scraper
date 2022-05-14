@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/Pilfer/ultimate-guitar-scraper/cmd"
@@ -15,7 +16,13 @@ func main() {
 	app.Version = "0.0.1"
 	app.Commands = []cli.Command{
 		cmd.FetchTab,
+		cmd.ExportTabHTML,
+		cmd.ExportWav,
 	}
-	_ = app.Run(os.Args)
 
+	err := app.Run(os.Args)
+
+	if err != nil {
+		log.Fatal("An error occurred: ", err)
+	}
 }

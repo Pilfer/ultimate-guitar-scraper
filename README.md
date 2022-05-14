@@ -10,6 +10,34 @@ This package allows you to programmatically fetch tabs and do pretty much whatev
 - A utility that calculates the most used chords or progressions in a specific set of songs  
 - Automatic transposition service  
 - A tab "player" - similar to the "GuitarPro" application  
+- Save text-based tabs + associated meta  
+- Generate and save HTML, PDF, etc tabs  
+- Download tabs then upload to popular services like Google Drive, Dropbox, etc  
+
+### Features  
+
+- [X] Commandline interface (WIP)
+- [X] Fetch a tab by id  
+- [X] Fetch tab by URL
+- [X] Search for tabs  
+- [X] Explore popular tabs  
+- [X] Explore tab as `.wav` (Thanks to [https://github.com/timiskhakov/music](https://github.com/timiskhakov/music))!!  
+- [X] Fetch popular tabs (see: `ultimateguitar.Explore`)  
+- [ ] Scrape all tabs by artist  
+  -  Fun fact: on mobile, UG doesn't have a "list tabs by artist name/id" endpoint. They just load ~7 pages. Weird. The functionality for this is technically here already, I just didn't add a helper method. Go nuts.  
+
+### Building  
+
+1. `go build` (lol)  
+
+### Using the CLI  
+
+Run `./ultimate-guitar-scraper -h` if you're curious, buuuut...
+
+- Fetch a tab: `./ultimate-guitar-scraper fetch -id 96835 -output wee.wav`  
+- Fetch and export tab as HTML (using `cmd/data/template.tmpl`): `./ultimate-guitar-scraper export -id 96835`  
+- Fetch a tab and export it as a .wav file: `./ultimate-guitar-scraper wav -id 113039 -output hallelujah.wav`  
+
 
 #### ... But why?  
 
@@ -19,20 +47,14 @@ As much as I appreciate the work UG has done compiling the largest online guitar
 #### Technology Used
 
 - Golang (duh)  
-- Frida - [https://frida.re/](https://frida.re/)    
+- Frida - [https://frida.re/](https://frida.re/)  
 - JEB Decompiler - [https://www.pnfsoftware.com/jeb/android](https://www.pnfsoftware.com/jeb/android)  
-- Charles / mitmproxy
-
-
-### Features  
-
-- [x] Commandline interface (WIP)
-- [x] Fetch a tab by id  
-- [x] Fetch tab by URL
-- [ ] Search for tabs - Will add later  
-- [ ] Fetch popular tabs - Will add later   
+- Charles / mitmproxy  
+- This awesome experimental package: https://github.com/timiskhakov/music  
 
 
 ## Disclaimer / Legal  
 
 This software's purpose is purely educational. I am not responsible for how you use this package. This repository and all others associated with it are not affiliated with, authorized, or endorsed by Ultimate-Guitar.com. 
+
+

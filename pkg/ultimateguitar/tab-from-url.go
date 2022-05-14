@@ -6,21 +6,17 @@ import (
 	"net/http"
 )
 
+// Fetches a tab by the Ultimate Guitar link. This is useful if you want to make backups of tabs from a list of existing urls without having to parse out the IDs
 func (s *Scraper) TabByURL(urlParam string) (TabFromURLResult, error) {
 	var tabResult TabFromURLResult
 
 	urlString := fmt.Sprintf("%s/tab/url?url=%s", ugAPIEndpoint, urlParam)
-	req, _ := http.NewRequest("GET", urlString, nil)
-
-	// Do some minor header manipulation so we retain the case
-	for key := range ugHeaders {
-		req.Header[key] = []string{ugHeaders[key]}
+	req, err := http.NewRequest("GET", urlString, nil)
+	if err != nil {
+		return tabResult, err
 	}
-	req.Header["X-UG-CLIENT-ID"] = []string{s.DeviceID}
-	req.Header["X-UG-API-KEY"] = []string{s.generateAPIKey()}
 
-	// This header isn't sent in the app, so we remove it.
-	req.Header.Del("Accept-Encoding")
+	s.ConfigureHeaders(req)
 
 	res, err := s.Client.Do(req)
 	if err != nil {
@@ -56,9 +52,9 @@ type TabFromURLResult struct {
 	VersionDescription string  `json:"version_description"`
 	Verified           int     `json:"verified"`
 	Recording          struct {
-		IsAcoustic       int           `json:"is_acoustic"`
-		TonalityName     string        `json:"tonality_name"`
-		Performance      interface{}   `json:"performance"`
-		RecordingArtists []interface{} `json:"recording_artists"`
+		IsAcoustic       int               `json:"is_acoustic"`
+		TonalityName     string            `json:"tonality_name"`
+		Performance      Performance       `json:"performance"`
+		RecordingArtists []RecordingArtist `json:"recording_artists"`
 	} `json:"recording"`
 }

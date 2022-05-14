@@ -51,6 +51,7 @@ type appPaths struct {
 	PROGRESS_TAB_SESSIONS string
 	PROGRESS_TRACKER      string
 	AB_TESTS              string
+	SEARCH_CHORDS         string
 }
 
 // AppPaths is to be used as shorthand for populating URIs.
@@ -87,6 +88,7 @@ var AppPaths = appPaths{
 	RATING:                "/tab/rating",
 	SUGGESTION:            "/tab/suggestion",
 	SEARCH:                "/tab/search",
+	SEARCH_CHORDS:         "/tab/search/chords",
 	TAB_PACKS:             "/tab/list/tabPack",
 	LOGIN:                 "/auth/login",
 	OAUTH:                 "/auth/oauth",

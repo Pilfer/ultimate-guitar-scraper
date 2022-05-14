@@ -2,10 +2,11 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/Pilfer/ultimate-guitar-scraper/pkg/ultimateguitar"
-	"github.com/urfave/cli"
 	"log"
 	"strings"
+
+	"github.com/Pilfer/ultimate-guitar-scraper/pkg/ultimateguitar"
+	"github.com/urfave/cli"
 )
 
 var FetchTab = cli.Command{
@@ -42,11 +43,9 @@ func fetchTabByID(c *cli.Context) {
 	fmt.Println("----------------------------------------------------------------------")
 
 	// Remove the syntax delimiters as a proof of concept
-	tabOut := tab.Content
-	tabOut = strings.ReplaceAll(tabOut, "[tab]", "")
+	tabOut := strings.ReplaceAll(tab.Content, "[tab]", "")
 	tabOut = strings.ReplaceAll(tabOut, "[/tab]", "")
 	tabOut = strings.ReplaceAll(tabOut, "[ch]", "")
 	tabOut = strings.ReplaceAll(tabOut, "[/ch]", "")
 	fmt.Println(tabOut)
-	fmt.Println("----------------------------------------------------------------------")
 }
