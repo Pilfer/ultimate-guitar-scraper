@@ -133,6 +133,19 @@ const (
 	ChordKeyAb        ChordKey = "Ab"
 )
 
+// LoginResult struct - this is what we get when we login
+type LoginResult struct {
+	Token	string `json:"token"`
+
+}
+
+// TabListing struct - this is what we get when we fetch all the saved tabs of a user
+type TabListing struct {
+	Date		   int 	   	   `json:"date"`
+	Tab		   TabResult 	   `json:"tab"`
+	Transpose          int   	   `json:"transpose"`
+}
+
 // TabResult struct - this is what we get when we fetch a tab by id.
 type TabResult struct {
 	ID                 int     `json:"id"`
