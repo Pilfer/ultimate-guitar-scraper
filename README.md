@@ -18,6 +18,7 @@ This package allows you to programmatically fetch tabs and do pretty much whatev
 
 - [X] Commandline interface (WIP)
 - [X] Fetch a tab by id  
+- [X] Fetch all your saved tabs.
 - [X] Fetch tab by URL
 - [X] Search for tabs  
 - [X] Explore popular tabs  
@@ -35,6 +36,7 @@ This package allows you to programmatically fetch tabs and do pretty much whatev
 Run `./ultimate-guitar-scraper -h` if you're curious, buuuut...
 
 - Fetch a tab: `./ultimate-guitar-scraper fetch -id 96835 -output wee.wav`  
+- Fetch all your saved tabs: `./ultimate-guitar-scraper get_all --output ./out`  
 - Fetch and export tab as HTML (using `cmd/data/template.tmpl`): `./ultimate-guitar-scraper export -id 96835`  
 - Fetch a tab and export it as a .wav file: `./ultimate-guitar-scraper wav -id 113039 -output hallelujah.wav`  
 
