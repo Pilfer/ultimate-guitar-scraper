@@ -103,8 +103,9 @@ func writeTabs(path string, tabs []ultimateguitar.TabResult) error {
 	for i := 0; i < len(tabs); i++ {
 		artist := tabs[i].ArtistName
 		songName := tabs[i].SongName
+		capo := tabs[i].Capo
 		content := tabs[i].Content
-		content = fmt.Sprintf("{artist: %s}\n{title: %s}\n%s", artist, songName, content)
+		content = fmt.Sprintf("{artist: %s}\n{title: %s}\n{capo: %d}\n%s", artist, songName, capo, content)
 
 		regex := regexp.MustCompile(`\[(/?tab|/?ch)\]`)
 		content = regex.ReplaceAllString(content, "")

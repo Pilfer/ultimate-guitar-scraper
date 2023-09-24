@@ -130,7 +130,6 @@ func (s *Scraper) Login(username string, password string) (string, error) {
         if err != nil || res.StatusCode != 200 {
         	return "Failed to login", err
         }
-	fmt.Println(res.StatusCode)
 	loginResult := LoginResult{}
 	err = json.NewDecoder(res.Body).Decode(&loginResult)
 	if err != nil {
