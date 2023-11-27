@@ -18,6 +18,7 @@ func main() {
 		cmd.FetchTab,
 		cmd.ExportTabHTML,
 		cmd.ExportWav,
+		cmd.GetAll,
 	}
 
 	err := app.Run(os.Args)

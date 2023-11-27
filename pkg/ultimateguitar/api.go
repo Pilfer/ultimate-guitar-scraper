@@ -5,6 +5,7 @@ import (
 	"crypto/md5"
 	"crypto/rand"
 	"crypto/tls"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -33,6 +34,7 @@ type Scraper struct {
 	Client   *http.Client
 	DeviceID string
 	APIKey   string
+	Token string
 }
 
 // Generates a new device id for the scraper instances. This value is used in the request headers and to generate X-UG-API-KEY.
@@ -115,4 +117,27 @@ func New() Scraper {
 	s.generateDeviceID()
 	s.generateAPIKey()
 	return s
+}
+
+func (s *Scraper) Login(username string, password string) (string, error) {
+	urlString := fmt.Sprintf("%s%s?username=%s&password=%s", ugAPIEndpoint, AppPaths.LOGIN, username, password)
+	req, err := http.NewRequest("PUT", urlString, nil)
+	if err != nil {
+		return "Failed to create request", err
+	}
+	s.ConfigureHeaders(req)
+        res, err := http.DefaultClient.Do(req)
+        if err != nil || res.StatusCode != 200 {
+        	return "Failed to login", err
+        }
+	loginResult := LoginResult{}
+	err = json.NewDecoder(res.Body).Decode(&loginResult)
+	if err != nil {
+		return "Failed to get token", err
+	}
+	s.Token = loginResult.Token
+
+        defer res.Body.Close()
+
+	return "Success", err
 }
