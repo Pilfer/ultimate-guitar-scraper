@@ -19,6 +19,7 @@ func main() {
 		cmd.ExportTabHTML,
 		cmd.ExportWav,
 		cmd.GetAll,
+		cmd.CountChords, // Add the new count_chords command here
 	}
 
 	err := app.Run(os.Args)
