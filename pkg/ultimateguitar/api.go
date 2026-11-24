@@ -15,7 +15,7 @@ import (
 
 // API constants
 const ugAPIEndpoint = "https://api.ultimate-guitar.com/api/v1" // API Base URL
-const ugUserAgent = "UGT_ANDROID/4.11.1 (Pixel; 8.1.0)"        // Default useragent for a pixel device
+const ugUserAgent = "UGT_ANDROID/7.3.32 (Pixel; 8.1.0)"        // Default useragent for a pixel device
 const UGTimeFormat = "2006-01-02"                              // API Key datetime format
 
 // 8:10pm getMd5 called! 97cae2a9bdf334ba2022-05-13:20createLog()
@@ -34,7 +34,7 @@ type Scraper struct {
 	Client   *http.Client
 	DeviceID string
 	APIKey   string
-	Token string
+	Token    string
 }
 
 // Generates a new device id for the scraper instances. This value is used in the request headers and to generate X-UG-API-KEY.
@@ -126,10 +126,10 @@ func (s *Scraper) Login(username string, password string) (string, error) {
 		return "Failed to create request", err
 	}
 	s.ConfigureHeaders(req)
-        res, err := http.DefaultClient.Do(req)
-        if err != nil || res.StatusCode != 200 {
-        	return "Failed to login", err
-        }
+	res, err := http.DefaultClient.Do(req)
+	if err != nil || res.StatusCode != 200 {
+		return "Failed to login", err
+	}
 	loginResult := LoginResult{}
 	err = json.NewDecoder(res.Body).Decode(&loginResult)
 	if err != nil {
@@ -137,7 +137,7 @@ func (s *Scraper) Login(username string, password string) (string, error) {
 	}
 	s.Token = loginResult.Token
 
-        defer res.Body.Close()
+	defer res.Body.Close()
 
 	return "Success", err
 }
